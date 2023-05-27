@@ -3,10 +3,10 @@ from django.http import HttpResponse, JsonResponse
 
 
 def home_view(request):
-    return render(request, 'home.html')
+    return render(request, 'website/index.html')
 
 def about_view(request):
-    return render(request, 'about.html')
+    return render(request, 'website/about.html')
 
 def contact_view(request):
-    return render(request, 'contact.html')
+    return render(request, 'website/contact.html')
