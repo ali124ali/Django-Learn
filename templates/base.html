@@ -15,7 +15,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>Travel</title>
+		<title>MyFirstDjangoProject</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<!--
@@ -62,38 +62,20 @@
 				        <ul class="nav-menu">
 				          <li><a href="{% url 'website:index' %}">Home</a></li>
 				          <li><a href="{% url 'website:about' %}">About</a></li>
-				          <li class="menu-has-children"><a href="{% url 'blog:home' %}">Blog</a>
-				            <ul>
-				              <li><a href="{% url 'blog:home' %}">Blog Home</a></li>
-				              <li><a href="{% url 'blog:single' %}">Blog Single</a></li>
-				            </ul>
-				          </li>	
-				          <li class="menu-has-children"><a href="">Pages</a>
-				            <ul>
-				            	  <li><a href="elements.html">Elements</a></li>
-						          <li class="menu-has-children"><a href="">Level 2 </a>
-						            <ul>
-						              <li><a href="#">Item One</a></li>
-						              <li><a href="#">Item Two</a></li>
-						            </ul>
-						          </li>					                		
-				            </ul>
-				          </li>					          					          		          
+						  <li><a href="{% url 'blog:home' %}">Blog</a></li>				          		          
 				          <li><a href="{% url 'website:contact' %}">Contact</a></li>
 				        </ul>
 				      </nav><!-- #nav-menu-container -->					      		  
 					</div>
 				</div>
 			</header><!-- #header -->
-			
 
             {% block content %}
 
 
 
             {% endblock %}
-
-
+			
 			<!-- start footer Area -->		
 			<footer class="footer-area section-gap">
 				<div class="container">

@@ -1,10 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    # author
-    # image
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to = 'images', default = 'default.jpg')
     # category
     # tag
     counted_view = models.IntegerField(default=0)
@@ -18,5 +19,6 @@ class Post(models.Model):
         ordering = ['created_date']
         # verbose_name = 'پست'
         # verbose_name_plural = 'پست ها'
+        
     def __str__(self):
         return "{}->{}".format(self.id, self.title)

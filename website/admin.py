@@ -10,4 +10,7 @@ class WebsiteAdmin(admin.ModelAdmin):
     class Meta:
         ordering = ['created_date']
 
+    def __str__(self):
+        return self.name
+
 admin.site.register(Contact, WebsiteAdmin)
