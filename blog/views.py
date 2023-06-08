@@ -3,15 +3,27 @@ from blog.models import Post
 from datetime import datetime
 
 def blog(request):
-    posts = Post.objects.filter(status = 1, published_date__lte=datetime.now())
+    posts = Post.objects.filter(status = 1, published_date__lte=datetime.now()).order_by('id')
     context = {'posts':posts}
     return render(request, 'blog/blog-home.html', context)
+
 
 def blog_single(request, pid):
     post = get_object_or_404(Post,status = 1,id=pid)
     context = {'post':post}
-    return render(request, 'blog/blog-single.html', context)
 
+    def counter():
+        post.counted_view += 1
+        post.save()
+
+    counter()
+    return render(request, 'blog/blog-single.html', context)
+    
+
+
+
+        
+        
 # def test(request, pid):
 #     post = get_object_or_404(Post,id=pid)
 #     context = {'post':post}
