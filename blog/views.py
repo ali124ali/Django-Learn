@@ -10,7 +10,22 @@ def blog(request):
 
 def blog_single(request, pid):
     post = get_object_or_404(Post,status = 1,id=pid)
-    context = {'post':post}
+    posts = list(Post.objects.filter(status = 1, published_date__lte=datetime.now()).order_by('id'))
+    index = posts.index(post)
+
+    if index == 0:
+        next_post = posts[index + 1]
+        prev_post = None
+
+    elif index == len(posts) - 1:
+        prev_post = posts[index - 1]
+        next_post = None
+
+    else:
+        prev_post = posts[index - 1]
+        next_post = posts[index + 1]
+
+    context = {'post':post, 'prev':prev_post, 'next':next_post}
 
     def counter():
         post.counted_view += 1
