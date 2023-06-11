@@ -41,7 +41,16 @@ def blog_single(request, pid):
     counter()
     return render(request, 'blog/blog-single.html', context)
         
-        
+def search(request):
+    posts = Post.objects.filter(status=1)
+    if request.method == 'GET':
+        if s := request.GET.get('s'):
+            posts = posts.filter(content__contains = s)
+
+    content = {'posts':posts}
+    return render(request, 'blog/blog-home.html', content)    
+
+
 def test(request):
     return render(request, 'blog/test.html')
 
