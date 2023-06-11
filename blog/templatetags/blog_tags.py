@@ -1,5 +1,5 @@
 from django import template
-from blog.models import Post
+from blog.models import Post, Category
 from datetime import datetime
 
 register = template.Library()
@@ -17,3 +17,14 @@ def snippet(value, count):
 def popularPosts(arg=3):
     posts = Post.objects.filter(status=1, published_date__lte=datetime.now()).order_by('-counted_view')[:arg]
     return {'posts':posts}
+
+@register.inclusion_tag('blog/blog-post-category.html')
+def postcategories():
+    posts = Post.objects.filter(status=1)
+    categories = Category.objects.all()
+
+    countcat = {}
+    for cat in categories:
+        countcat[cat] = posts.filter(category=cat).count()
+
+    return {'categories':  countcat}
