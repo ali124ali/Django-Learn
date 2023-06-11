@@ -4,14 +4,14 @@ from datetime import datetime
 
 register = template.Library()
 
-@register.simple_tag(name="posts")  
-def hello():
-    posts = Post.objects.filter(status=1)
-    return (posts)
+# @register.simple_tag(name="posts")  
+# def hello():
+#     posts = Post.objects.filter(status=1)
+#     return (posts)
 
-@register.filter
-def snippet(value, count):
-    return value[:count]
+# @register.filter
+# def snippet(value, count):
+#     return value[:count]
 
 @register.inclusion_tag('blog/blog-popularposts.html')
 def popularPosts(arg=3):
