@@ -4,14 +4,14 @@ from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def blog(request, **kwargs):
-    posts = Post.objects.filter(status = 1, published_date__lte=datetime.now()).order_by('id')
+    posts = Post.objects.filter(status = 1, published_date__lte=datetime.now()).order_by('-published_date')
     if kwargs.get('cat_name') != None:
         posts = posts.filter(category__name = kwargs['cat_name'])
     
     if kwargs.get('author_username') != None:
         posts = posts.filter(author__username = kwargs['author_username'])
     
-    posts = Paginator(posts, 2)
+    posts = Paginator(posts, 3)
     
     try:
         page_num = request.GET.get('page')
@@ -29,7 +29,7 @@ def blog(request, **kwargs):
 
 def blog_single(request, pid):
     post = get_object_or_404(Post,status = 1,id=pid)
-    posts = list(Post.objects.filter(status = 1, published_date__lte=datetime.now()).order_by('id'))
+    posts = list(Post.objects.filter(status = 1, published_date__lte=datetime.now()))
 
     index = posts.index(post)
 
