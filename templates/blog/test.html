@@ -7,13 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
 </head>
-<body>
-    {% posts as tp %}
-    <p>test: {% for post in tp %}
-                <p>{{post.content|snippet:150}}...</p>
-                {% endfor %}    
-            </p>
-            
+<body>      
             {% popularPosts %}
 </body>
 </html>
