@@ -9,3 +9,8 @@ sqlparse
 urllib3
 pillow
 django-extensions
+django-debug-toolbar
+django-extensions
+django-robots
+django-summernote
+django-taggit 

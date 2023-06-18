@@ -18,9 +18,9 @@ def contact_view(request):
             new = form.save(commit=False)
             new.name = "Unknown"
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Successfully Sent.')
+            messages.add_message(request, messages.SUCCESS, 'Your Ticket Successfully Sent.')
         else:
-            messages.add_message(request, messages.ERROR, 'Something Wrong !!! ')
+            messages.add_message(request, messages.ERROR, 'Something Went Wrong !!! ')
 
     else:
         form = ContactForm()
@@ -33,10 +33,10 @@ def newsletter_view(request):
         if form.is_valid():
       
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Successfully Sent.', extra_tags='alert')
+            messages.add_message(request, messages.SUCCESS, 'Your Email Successfully Submited.', extra_tags='alert')
 
         else:
-            messages.add_message(request, messages.ERROR, 'Something Wrong !!! ', extra_tags='alert')
+            messages.add_message(request, messages.ERROR, 'Something Went Wrong !!! ', extra_tags='alert')
 
     else:
         form = NewsletterForm()
