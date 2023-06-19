@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from blog.models import Post
+from blog.models import Post, Comment
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from blog.forms import CommentForm
+from django.contrib import messages
 
 def blog(request, **kwargs):
-    posts = Post.objects.filter(status = 1, published_date__lte=datetime.now()).order_by('-published_date')
+    posts = Post.objects.filter(status = 1, published_date__lte=datetime.now())
     if kwargs.get('cat_name') != None:
         posts = posts.filter(category__name = kwargs['cat_name'])
     
@@ -31,9 +33,13 @@ def blog(request, **kwargs):
 
 
 def blog_single(request, pid):
+
+
+
     post = get_object_or_404(Post,status = 1,id=pid)
     posts = list(Post.objects.filter(status = 1, published_date__lte=datetime.now()))
 
+    comments = Comment.objects.filter(post = post.id, approved=True)
     index = posts.index(post)
 
     if index == 0:
@@ -48,13 +54,26 @@ def blog_single(request, pid):
         prev_post = posts[index - 1]
         next_post = posts[index + 1]
 
-    context = {'post':post, 'prev':prev_post, 'next':next_post}
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Your Comment Submited Successfuly.')
+
+        else:
+            messages.add_message(request, messages.ERROR, 'Your Comment Submition Failed, Please Try Again.')
+    else:
+        form = CommentForm()
+
 
     def counter():
         post.counted_view += 1
         post.save()
 
     counter()
+
+    context = {'post':post, 'prev':prev_post, 'next':next_post,'form':form, 'comments':comments}
     return render(request, 'blog/blog-single.html', context)
         
 def search(request):

@@ -43,6 +43,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'multi_captcha_admin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'captcha',
     "debug_toolbar",
     'django.contrib.humanize',
     'django.contrib.sites',
@@ -63,6 +66,11 @@ INSTALLED_APPS = [
     'blog'
 ]
 
+# captcha admin settings
+
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
 
 # summernote config
 

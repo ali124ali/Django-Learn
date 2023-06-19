@@ -1,5 +1,5 @@
 from django import template
-from blog.models import Post, Category
+from blog.models import Post, Category, Comment
 from datetime import datetime
 
 register = template.Library()
@@ -28,3 +28,8 @@ def postcategories():
         countcat[cat] = posts.filter(category=cat).count()
 
     return {'categories':  countcat}
+
+@register.simple_tag(name='comments_count')
+def function(pid):
+    return Comment.objects.filter(post = pid, approved=True).count()
+     

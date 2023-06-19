@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from website.models import Contact, Newsletter
-from website.forms import  ContactForm , NewsletterForm#, NameForm
+from website.forms import  ContactForm , NewsletterForm #, NameForm
 from django.http import HttpResponse, HttpResponseRedirect #, JsonResponse
 from django.contrib import messages
 

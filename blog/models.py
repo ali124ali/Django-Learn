@@ -6,6 +6,9 @@ from taggit.managers import TaggableManager
 class Category(models.Model):
     name = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     def __str__(self):
         return self.name
 
@@ -25,12 +28,29 @@ class Post(models.Model):
 
     class Meta:
         # app_label = 'blog'
-        ordering = ['created_date']
+        ordering = ['-published_date']
         # verbose_name = 'پست'
         # verbose_name_plural = 'پست ها'
         
     def __str__(self):
-        return "{}->{}".format(self.id, self.title)
+        return self.title
 
     def get_absolute_url(self):
         return reverse('blog:single', kwargs={'pid':self.id})
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=False, blank=False)
+    name = models.CharField(max_length=255)
+    email = models.EmailField(null=True, blank=True)
+    subject = models.CharField(max_length=255)
+    message = models.TextField(null=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    approved = models.BooleanField()
+
+    class Meta:
+        ordering = ['-created_date']
+
+    def __str__(self):
+        return self.name
