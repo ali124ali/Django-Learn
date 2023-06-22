@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'taggit',
 
     'website',
-    'blog'
+    'blog',
+    'accounts',
 ]
 
 # captcha admin settings
