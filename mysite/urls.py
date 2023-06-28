@@ -46,6 +46,8 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('captcha/', include('captcha.urls')),
     path("blog/rss/feed/", LatestEntriesFeed()),
+    # need this line for reset password with email with django auth views
+    path('', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

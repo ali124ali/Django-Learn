@@ -43,8 +43,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'multi_captcha_admin',
+    'accounts',
 
+    'multi_captcha_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,7 +65,6 @@ INSTALLED_APPS = [
 
     'website',
     'blog',
-    'accounts',
 ]
 
 # captcha admin settings
@@ -232,3 +232,15 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTH_USER_MODEL = 'accounts.User'
+
+# send email settings
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'django.ali77@gmail.com'
+# EMAIL_HOST_PASSWORD = '@Alidjango98'

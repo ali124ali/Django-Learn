@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm #, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm #, UserCreationForm
 from django.urls import reverse
 from django.contrib import messages
 from accounts.forms import CustomUserCreationForm
+# from django.template.loader import render_to_string
+# from django.contrib.sites.shortcuts import get_current_site
+# from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+# from django.utils.encoding import force_bytes, force_str
+# from django.db.models.query_utils import Q
+# from django.core.mail import EmailMessage
 
 
 def login_view(request):
@@ -35,6 +41,7 @@ def login_view(request):
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
+
     return redirect('/')
 
 
@@ -51,3 +58,26 @@ def signup_view(request):
         return render(request, 'accounts/signup.html', context)
     else:
         return redirect('/')
+
+
+@login_required
+def password_change(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = PasswordChangeForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                logout(request)
+                # messages.SUCCESS(request, 'Your password has been changed.')
+                return redirect('/accounts/login')
+            # else:
+            #     messages.ERROR(request, 'Operation failed!\nPlease try again.')
+
+        form = PasswordChangeForm(request)
+        context = {'form':form}
+        return render(request, 'accounts/password_change_form.html', context)
+    else:
+        
+        return redirect('/') 
+
