@@ -28,7 +28,7 @@ def login_view(request):
                     return redirect('/')
 
                 else:
-                    messages.add_message(request, messages.WARNING, 'User Not Found !!!')
+                    messages.WARNING(request, 'User Not Found !!!')
 
         form = AuthenticationForm()
         context = {'form':form}

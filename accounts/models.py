@@ -1,9 +1,14 @@
-# from django.db import models
-# from django.contrib.auth.models import AbstractUser, PermissionsMixin, UserManager
+from django.db import models
+from django.contrib.auth.models import AbstractUser, PermissionsMixin, UserManager
 
-# class User(AbstractUser, PermissionsMixin):
-#     email = models.EmailField(max_length=255, unique=True)
-#     REQUIRED_FIELDS = []
-    # objects = UserManager()
 
+class User(AbstractUser):
+    email = models.EmailField(max_length=255, unique=True, null=False, blank=False)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    class Meta:
+        pass
+        
+    def __str__(self):
+            return self.username
 

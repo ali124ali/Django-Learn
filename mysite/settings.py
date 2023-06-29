@@ -73,6 +73,8 @@ MULTI_CAPTCHA_ADMIN = {
     'engine': 'simple-captcha',
 }
 
+# AUTHENTICATION_BACKENDS = ['authentication.views.EmailOrUsernameModelBackend']
+
 # summernote config
 
 SUMMERNOTE_THEME = 'bs4'
@@ -231,7 +233,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 # send email settings
 
