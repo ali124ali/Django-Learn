@@ -2,7 +2,7 @@ asgiref
 bleach
 certifi
 charset-normalizer
-Django
+Django>4.2,<4.3
 django-debug-toolbar
 django-extensions
 django-multi-captcha-admin
@@ -19,5 +19,6 @@ pytz
 requests
 six
 sqlparse
+typing_extensions
 urllib3
 webencodings
