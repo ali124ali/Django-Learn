@@ -76,7 +76,7 @@ SUMMERNOTE_CONFIG = {
         'airMode': False,
 
         # Change editor size
-        'width': '100%',
+        'width': '550',
         'height': '480',
 
         # Use proper language setting automatically (default)
@@ -205,6 +205,8 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend','accounts.backends.EmailBackend']
 
 # send email settings
 

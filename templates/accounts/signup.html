@@ -22,6 +22,7 @@
                             <span class="fa fa-user-o"></span>
                         </div>
                         <h3 class="text-center mb-4">Sign Up</h3>
+                        {% include 'messages.html' %}
                         <form action="{% url 'accounts:signup' %}" class="login-form" method="post">
                             {% csrf_token %}
                             <div class="form-group">
@@ -45,11 +46,7 @@
                             </div>
                             <a class="text-center mb-4"  href="{% url 'website:index' %}">Back</a>     
                         </form>
-                        {% if messages %}
-`                           {% for message in messages %}
-                                <p>{{message}}</p> 
-                            {% endfor %}
-                        {% endif %}
+        
                     </div>
                 </div>
             </div>

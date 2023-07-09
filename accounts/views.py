@@ -5,12 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, Pa
 from django.urls import reverse
 from django.contrib import messages
 from accounts.forms import CustomUserCreationForm
-# from django.template.loader import render_to_string
-# from django.contrib.sites.shortcuts import get_current_site
-# from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-# from django.utils.encoding import force_bytes, force_str
-# from django.db.models.query_utils import Q
-# from django.core.mail import EmailMessage
+
+User = get_user_model()
 
 
 def login_view(request):
@@ -21,14 +17,19 @@ def login_view(request):
             if form.is_valid():
                 username = form.cleaned_data.get('username')
                 password = form.cleaned_data.get('password')
-                user = authenticate(username=username, password=password)
 
+                user = authenticate(username=username, password=password)
+                    
                 if user is not None:
                     login(request, user)
+                    messages.add_message(request, messages.SUCCESS, 'You Loged In Successfuly')
                     return redirect('/')
 
                 else:
-                    messages.WARNING(request, 'User Not Found !!!')
+                    messages.add_message(request, messages.WARNING, 'Are You Signed Up?')
+            else:
+                messages.add_message(request, messages.ERROR, 'This User Is Not Valid !!!')
+
 
         form = AuthenticationForm()
         context = {'form':form}
@@ -41,6 +42,7 @@ def login_view(request):
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
+        messages.add_message(request, messages.SUCCESS, 'You Loged Out')
 
     return redirect('/')
 
@@ -51,7 +53,10 @@ def signup_view(request):
             form = CustomUserCreationForm(request.POST)
             if form.is_valid():
                 form.save()
+                messages.add_message(request, messages.SUCCESS, 'You Signed Up Successfuly\nPlease Log In')
                 return redirect('/accounts/login')
+            else:
+                messages.add_message(request, messages.ERROR, 'Operation Failed\nTry Again')
 
         form = CustomUserCreationForm()
         context = {'form':form}
@@ -68,11 +73,13 @@ def password_change(request):
             if form.is_valid():
                 form.save()
                 update_session_auth_hash(request, form.user)
+                messages.add_message(request, messages.SUCCESS, 'You\'re Password Changed Successfuly')
+
                 logout(request)
-                # messages.SUCCESS(request, 'Your password has been changed.')
+
                 return redirect('/accounts/login')
-            # else:
-            #     messages.ERROR(request, 'Operation failed!\nPlease try again.')
+            else:
+                messages.add_message(request, messages.ERROR, 'Operation Failed')
 
         form = PasswordChangeForm(request)
         context = {'form':form}
