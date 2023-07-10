@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from website.models import Contact, Newsletter
-from website.forms import  ContactForm , NewsletterForm #, NameForm
-from django.http import HttpResponse, HttpResponseRedirect #, JsonResponse
+from website.forms import  ContactForm , NewsletterForm
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+
+# def maintenance(request):
+#     return render(request, 'maintenance.html')
 
 def home_view(request):
     return render(request, 'website/index.html')
@@ -50,13 +53,7 @@ def test(request):
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Successfully Sent.')
-            # c = Contact()
-            # c.name = form.cleaned_data['name']
-            # c.email = form.cleaned_data['email']
-            # c.subject = form.cleaned_data['subject']
-            # c.message = form.cleaned_data['message']
-            # c.save()
-            
+  
             return HttpResponseRedirect('test')
 
         else:

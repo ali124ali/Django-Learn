@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
-
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
@@ -210,12 +213,10 @@ AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend','accounts
 
 # send email settings
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-# EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'django.ali77@gmail.com'
-# EMAIL_HOST_PASSWORD = '@Alidjango98'
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('emailUsername')
+EMAIL_HOST_PASSWORD = env('emailPassword')

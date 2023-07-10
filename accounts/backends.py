@@ -1,6 +1,4 @@
 from django.contrib.auth import get_user_model
-# from django.contrib.auth.models import check_password
-from django.db.models import Q
 from django.contrib.auth.backends import ModelBackend
 
 UserModel = get_user_model()

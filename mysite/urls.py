@@ -21,6 +21,7 @@ from django.contrib.sitemaps.views import sitemap
 from website.sitemaps import StaticViewSitemap
 from blog.sitemaps import BlogSitemap
 from blog.feeds import LatestEntriesFeed
+# from website.views import maintenance
 
 sitemaps = {
     "static": StaticViewSitemap,
@@ -28,6 +29,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+    # re_path(r'^.*$', maintenance),
     path('admin/', admin.site.urls),
     path('', include('website.urls')),
     path('blog/', include('blog.urls')),
