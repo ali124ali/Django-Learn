@@ -23,10 +23,14 @@ SITE_ID = 2
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': 'alidehkh_mydb',
+		'USER': 'alidehkh_ali',
+		'PASSWORD': '6rTQMGGCmceVTK9',
+		'HOST':'localhost',
+		'PORT':'3306',
+	}
 }
 
 STATIC_ROOT = BASE_DIR / 'static'
@@ -37,3 +41,26 @@ STATICFILES_DIRS = [
 ]
 
 CSRF_COOKIE_SECURE = True
+
+# django_compressor
+COMPRESS_ENABLED = True
+
+COMPRESS_URL = STATIC_URL
+
+COMPRESS_ROOT = STATIC_ROOT
+
+COMPRESS_OUTPUT_DIR = 'CACHE'
+
+COMPRESS_FILTERS = {
+    'css': ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'],
+    'js': ['compressor.filters.jsmin.rJSMinFilter']
+    }
+
+COMPRESS_CSS_HASHING_METHOD = 'mtime'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)

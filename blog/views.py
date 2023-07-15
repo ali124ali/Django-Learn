@@ -7,6 +7,7 @@ from django.contrib import messages
 
 def blog(request, **kwargs):
     posts = Post.objects.filter(status = 1, published_date__lte=datetime.now())
+    
     if kwargs.get('cat_name') != None:
         posts = posts.filter(category__name = kwargs['cat_name'])
     

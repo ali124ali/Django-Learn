@@ -4,10 +4,11 @@ from mysite.settings import *
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zobl^9t)ifpr1b%c1f3kqj9iy(l14mk9g*l=yp16p3ao5bb%c3'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = []
@@ -34,3 +35,26 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
     BASE_DIR / "statics",
 ]
+
+# django_compressor
+COMPRESS_ENABLED = True
+
+COMPRESS_URL = STATIC_URL
+
+COMPRESS_ROOT = STATIC_ROOT
+
+COMPRESS_OUTPUT_DIR = 'CACHE'
+
+COMPRESS_FILTERS = {
+    'css': ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter'],
+    'js': ['compressor.filters.jsmin.rJSMinFilter']
+    }
+
+COMPRESS_CSS_HASHING_METHOD = 'mtime'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
