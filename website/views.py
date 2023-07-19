@@ -45,22 +45,3 @@ def newsletter_view(request):
         form = NewsletterForm()
 
     return HttpResponseRedirect('/')
-
-def test(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'Successfully Sent.')
-  
-            return HttpResponseRedirect('test')
-
-        else:
-            messages.add_message(request, messages.ERROR, 'Something Wrong !!! ')
-            return HttpResponse('<p>not valid</p>')
-
-    else:
-        form = ContactForm()
-
-    return render(request, 'website/test.html', {'form':form})
